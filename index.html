@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.min.css">
     <!-- APP CSS -->
     <link rel="stylesheet" href="./css/grid.css">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="./css/app.css">
 </head>
 
@@ -899,6 +900,37 @@
     <script src="./js/hover-effect.umd.js"></script>
     <!-- APP JS -->
     <script src="./js/app.js"></script>
+    <script src="serviceworker.js"></script>
+    <script src="main.js"></script>
+    
+    <script type="text/javascript">
+
+        navigator.serviceWorker.register('/myproject/scripts/common/pushNotifications/sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+             }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+        });
+        
+</script>
+    <script>
+        window.addEventListener('load', () => {
+            registerSW();
+            });
+        
+            // Register the Service Worker
+            async function registerSW() {
+            if ('serviceWorker' in navigator) {
+                try {
+                await navigator
+                        .serviceworker
+                        .register('serviceworker.js');
+                }
+                catch (e) {
+                console.log('SW registration failed');
+                }
+            }
+            }
+    </script>
 </body>
 
 </html>
